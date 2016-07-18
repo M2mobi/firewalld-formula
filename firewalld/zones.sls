@@ -43,4 +43,9 @@ directory_firewalld_zones:
         name: {{ z_name }}
         zone: {{ v|json }}
 
+clear_zone_dir:
+  cmd.run:
+    - name: "find . ! -name '{{ z_name }}.xml' -type f -exec rm -f {} +"
+    - unless:
+      - "grep -r 'eth0' /etc/firewalld/zones/ | wc -l | grep 1"
 {% endfor %}
