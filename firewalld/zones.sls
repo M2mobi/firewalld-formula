@@ -43,7 +43,7 @@ directory_firewalld_zones:
         name: {{ z_name }}
         zone: {{ v|json }}
 
-clear_firewalld_zone_dir:
+clear_firewalld_{{ z_name }}_zone_dir:
   cmd.run:
     - name: "find /etc/firewalld/zones/ ! -name '{{ z_name }}.xml' -type f -exec rm -f {} +"
     - unless:
