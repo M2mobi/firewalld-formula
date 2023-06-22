@@ -45,7 +45,7 @@ directory_firewalld_ipsets:
     - name: /etc/firewalld/ipsets
     - user: root
     - group: root
-    - mode: 750
+    - mode: '0750'
     - require:
       - pkg: package_firewalld # make sure package is installed
     - require_in:
@@ -65,7 +65,7 @@ directory_firewalld_ipsets:
     - name: /etc/firewalld/ipsets/{{ z_name }}.xml
     - user: root
     - group: root
-    - mode: 644
+    - mode: '0644'
     - source: salt://firewalld/files/ipset.xml
     - template: jinja
     - require:

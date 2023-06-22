@@ -5,11 +5,11 @@
 {% from "firewalld/map.jinja" import firewalld with context %}
 
 directory_firewalld_zones:
-  file.directory:            # make sure this is a directory
-    - name: /etc/firewalld/zones
+  file.directory:
+    - name: /etc/firewalld/zones # make sure this is a directory
     - user: root
     - group: root
-    - mode: 750
+    - mode: '0750'
     - require:
       - pkg: package_firewalld # make sure package is installed
     - require_in:
@@ -29,7 +29,7 @@ directory_firewalld_zones:
     - name: /etc/firewalld/zones/{{ z_name }}.xml
     - user: root
     - group: root
-    - mode: 644
+    - mode: '0644'
     - source: salt://firewalld/files/zone.xml
     - template: jinja
     - require:
@@ -43,7 +43,7 @@ directory_firewalld_zones:
         name: {{ z_name }}
         zone: {{ v|json }}
 
-clear_zone_dir:
+clear_firewalld_zone_dir:
   cmd.run:
     - name: "find /etc/firewalld/zones/ ! -name '{{ z_name }}.xml' -type f -exec rm -f {} +"
     - unless:
